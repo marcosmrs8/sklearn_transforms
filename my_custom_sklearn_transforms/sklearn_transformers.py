@@ -14,3 +14,14 @@ class DropColumns(BaseEstimator, TransformerMixin):
         data = X.copy()
         # Retornamos um novo dataframe sem as colunas indesejadas
         return data.drop(labels=self.columns, axis='columns')
+
+class SetIndex(BaseEstimator, TransformerMixin):
+    def _init_(self, columns):
+        self.columns = columns
+        
+    def fit(self, X, y=None):
+        return self
+    
+    def transform(self, X):
+        data = X.copy()
+        return data.set_index(self.columns, inplace=True)
